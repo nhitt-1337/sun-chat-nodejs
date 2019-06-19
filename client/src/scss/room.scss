@@ -113,6 +113,10 @@ head .delete-member {
   padding: 5px 5px 10px 5px;
 }
 
+.list-message {
+  padding: 24px 2px;
+}
+
 .list-message > .ant-list-item {
   padding: 6px 0px;
 }
@@ -259,11 +263,35 @@ head .delete-member {
 }
 
 .wrap-message {
-  border: 1px solid #fff;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  padding: 0 15px;
+  &:hover {
+    border-top: 1px solid #b5d9fd;
+    border-bottom: 1px solid #b5d9fd;
+    border-right: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    background-color: #f2faff;
+  }
+  .timelineMessage__message {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    font-family: inherit;
+    color: #1a1a1a;
+    margin-left: 45px;
+    margin-top: -15px;
+  }
 }
 
 .message-time h4 {
   font-size: 12px;
+  float: right;
 }
 
 .message-item {
@@ -293,10 +321,27 @@ pre {
   margin-top: -16px;
 }
 
-.list-message .ant-row {
-  border-bottom: 1px solid rgba(24, 24, 24, 0.2);
-}
-
 .pre-notification {
   margin-right: -10%;
+}
+
+.ant-list-item-meta-title p {
+  color: #0084b2;
+  font-size: 14px;
+}
+
+.ant-typography {
+  strong {
+    color: #666666;
+  }
+  &.name-chat-room strong {
+    color: #1a1a1a;
+    font-size: 16px;
+  }
+}
+
+.group-button-hover button {
+  padding: 0;
+  color: #1a1a1a;
+  font-size: 13px;
 }

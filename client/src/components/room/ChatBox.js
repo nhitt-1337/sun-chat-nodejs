@@ -59,7 +59,7 @@ class ChatBox extends React.Component {
       let listId = [],
         messages = res.data.messages;
 
-      messages.map(function (item) {
+      messages.map(function(item) {
         listId.push(item._id);
       });
 
@@ -196,8 +196,10 @@ class ChatBox extends React.Component {
     const messageId = e.currentTarget.id;
     const oldMsgFlag = e.currentTarget.getAttribute('old-msg-flag');
 
-    const message = (oldMsgFlag == 1) ? this.getMessageById(this.state.prevMessages, messageId) 
-      : this.getMessageById(this.state.messages, messageId);
+    const message =
+      oldMsgFlag == 1
+        ? this.getMessageById(this.state.prevMessages, messageId)
+        : this.getMessageById(this.state.messages, messageId);
 
     if (message !== null) {
       this.setState({
@@ -298,7 +300,7 @@ class ChatBox extends React.Component {
             });
           }
 
-          listNewMsg.map(function (item) {
+          listNewMsg.map(function(item) {
             listNewId.push(item._id);
           });
 
@@ -329,7 +331,12 @@ class ChatBox extends React.Component {
     }
 
     /* check the first view room || loading new message || final message */
-    if (currentLastMsgId === null || currentLastMsgId === this.props.lastMsgId || this.state.loadingNew || (arrCheckEnable.length === 1 && !hasMsgUnRead)) {
+    if (
+      currentLastMsgId === null ||
+      currentLastMsgId === this.props.lastMsgId ||
+      this.state.loadingNew ||
+      (arrCheckEnable.length === 1 && !hasMsgUnRead)
+    ) {
       this.updateLastMsgId(listNewLoadedMessage, currentLastMsgId, arrCheckEnable.length - 1);
     }
   }
@@ -387,7 +394,7 @@ class ChatBox extends React.Component {
     });
   };
 
-  handleInfiniteOnLoad = () => { };
+  handleInfiniteOnLoad = () => {};
 
   createMarkupMessage = message => {
     const members = this.props.allMembers;
@@ -442,10 +449,10 @@ class ChatBox extends React.Component {
           {this.props.t('title.add_contact')}
         </Button>
       ) : (
-          <Link to={`/rooms/${directRoomId}`}>
-            <Button>{this.props.t('title.direct_chat')}</Button>
-          </Link>
-        );
+        <Link to={`/rooms/${directRoomId}`}>
+          <Button>{this.props.t('title.direct_chat')}</Button>
+        </Link>
+      );
     }
 
     return (
@@ -480,35 +487,35 @@ class ChatBox extends React.Component {
       allMembers == [] ? (
         <span>Not data</span>
       ) : (
-          <div className="member-infinite-container">
-            {roomInfo.type == ROOM_TYPE.GROUP_CHAT && (
-              <a className="form-control to-all" href="javascript:;" onClick={handlersMessage.actionFunc.toAll}>
-                <span>{t('to_all')}</span>
-              </a>
-            )}
-            <InfiniteScroll initialLoad={false} pageStart={0} loadMore={this.handleInfiniteOnLoad} useWindow={false}>
-              <List
-                dataSource={allMembers}
-                renderItem={member => {
-                  return member._id != currentUserInfo._id ? (
-                    <List.Item key={member._id}>
-                      <List.Item.Meta
-                        avatar={<Avatar src={getUserAvatarUrl(member.avatar)} />}
-                        title={
-                          <a onClick={handlersMessage.actionFunc.toMember} href="javascript:;" data-mid={member._id}>
-                            {member.name}
-                          </a>
-                        }
-                      />
-                    </List.Item>
-                  ) : (
-                      <span />
-                    );
-                }}
-              />
-            </InfiniteScroll>
-          </div>
-        );
+        <div className="member-infinite-container">
+          {roomInfo.type == ROOM_TYPE.GROUP_CHAT && (
+            <a className="form-control to-all" href="javascript:;" onClick={handlersMessage.actionFunc.toAll}>
+              <span>{t('to_all')}</span>
+            </a>
+          )}
+          <InfiniteScroll initialLoad={false} pageStart={0} loadMore={this.handleInfiniteOnLoad} useWindow={false}>
+            <List
+              dataSource={allMembers}
+              renderItem={member => {
+                return member._id != currentUserInfo._id ? (
+                  <List.Item key={member._id}>
+                    <List.Item.Meta
+                      avatar={<Avatar src={getUserAvatarUrl(member.avatar)} />}
+                      title={
+                        <a onClick={handlersMessage.actionFunc.toMember} href="javascript:;" data-mid={member._id}>
+                          {member.name}
+                        </a>
+                      }
+                    />
+                  </List.Item>
+                ) : (
+                  <span />
+                );
+              }}
+            />
+          </InfiniteScroll>
+        </div>
+      );
 
     const redLine = (
       <div
@@ -530,16 +537,24 @@ class ChatBox extends React.Component {
         <div className="list-message" ref={element => (this.roomRef = element)} onScroll={this.handleScroll}>
           {(isLoadingPrev || isLoadingMes) && <Loading />}
           {prevMessages.map(message => {
-            let messageHtml = this.createMarkupMessage(message)
+            let messageHtml = this.createMarkupMessage(message);
             let notificationClass = message.is_notification ? 'pre-notification' : '';
-            let isToMe = messageHtml.__html.includes(`data-cwtag="[To:${currentUserInfo._id}]"`) ||
+            let isToMe =
+              messageHtml.__html.includes(`data-cwtag="[To:${currentUserInfo._id}]"`) ||
               messageHtml.__html.includes(messageConfig.SIGN_TO_ALL);
 
             return (
-              <div key={message._id} ref={element => (this.prevMessageRowRefs[message._id] = element)}>
+              <div
+                key={message._id}
+                ref={element => (this.prevMessageRowRefs[message._id] = element)}
+                className="wrap-message"
+              >
                 <Row
                   key={message._id}
-                  className={this.state.messageIdEditing === message._id ? 'message-item isEditing' : 'message-item', isToMe ? 'timelineMessage--mention' : '' }
+                  className={
+                    (this.state.messageIdEditing === message._id ? 'message-item isEditing' : 'message-item',
+                    isToMe ? 'timelineMessage--mention' : '')
+                  }
                   onMouseEnter={this.handleMouseEnter}
                   onMouseLeave={this.handleMouseLeave}
                   id={message._id}
@@ -562,9 +577,10 @@ class ChatBox extends React.Component {
                         </div>
                       </Popover>
                     </List.Item>
-                    <div className="infor-content">
-                      <pre className={"timelineMessage__message " + notificationClass} dangerouslySetInnerHTML={messageHtml} />
-                    </div>
+                    <pre
+                      className={'timelineMessage__message ' + notificationClass}
+                      dangerouslySetInnerHTML={messageHtml}
+                    />
                   </Col>
                   <Col span={2} className="message-time">
                     <h4>
@@ -574,22 +590,25 @@ class ChatBox extends React.Component {
                           <Icon type="edit" />
                         </span>
                       ) : (
-                          ''
-                        )}
+                        ''
+                      )}
                     </h4>
                   </Col>
-                  <Col span={24} style={{ position: 'relative' }}>
-                    {this.state.messageIdHovering === message._id && message.is_notification == false &&
+                  <Col span={24} style={{ position: 'relative' }} className="group-button-hover">
+                    {this.state.messageIdHovering === message._id && message.is_notification == false && (
                       <div style={{ textAlign: 'right', position: 'absolute', bottom: '0', right: '0' }}>
-                        {currentUserInfo._id === message.user_info._id &&  
-                          !this.props.isReadOnly && (
-                            <Button type="link" onClick={this.editMessage} id={message._id} old-msg-flag="1">
-                              <Icon type="edit" /> {t('button.edit')}
-                            </Button>
-                          )
-                        }
+                        {currentUserInfo._id === message.user_info._id && !this.props.isReadOnly && (
+                          <Button type="link" onClick={this.editMessage} id={message._id} old-msg-flag="1">
+                            <Icon type="edit" /> {t('button.edit')}
+                          </Button>
+                        )}
                         <Divider type="vertical" />
-                        <Button type="link" onClick={handlersMessage.actionFunc.replyMember} id={currentUserInfo._id + '-' + message._id} data-mid={message.user_info._id}>
+                        <Button
+                          type="link"
+                          onClick={handlersMessage.actionFunc.replyMember}
+                          id={currentUserInfo._id + '-' + message._id}
+                          data-mid={message.user_info._id}
+                        >
                           <Icon type="enter" /> {t('button.reply')}
                         </Button>
                         <Divider type="vertical" />
@@ -597,7 +616,7 @@ class ChatBox extends React.Component {
                           <Icon type="rollback" /> {t('button.quote')}
                         </Button>
                       </div>
-                    }
+                    )}
                   </Col>
                 </Row>
               </div>
@@ -606,9 +625,10 @@ class ChatBox extends React.Component {
           <div ref={element => (this.roomRef = element)}>
             {loadingNew && <Loading />}
             {messages.map(message => {
-              let messageHtml = this.createMarkupMessage(message)
+              let messageHtml = this.createMarkupMessage(message);
               let notificationClass = message.is_notification ? 'pre-notification' : '';
-              let isToMe = messageHtml.__html.includes(`data-cwtag="[To:${currentUserInfo._id}]"`) ||
+              let isToMe =
+                messageHtml.__html.includes(`data-cwtag="[To:${currentUserInfo._id}]"`) ||
                 messageHtml.__html.includes(messageConfig.SIGN_TO_ALL);
 
               return (
@@ -621,7 +641,7 @@ class ChatBox extends React.Component {
                     key={message._id}
                     className={
                       (this.state.messageIdEditing === message._id ? 'message-item isEditing' : 'message-item',
-                        isToMe ? 'timelineMessage--mention' : '')
+                      isToMe ? 'timelineMessage--mention' : '')
                     }
                     onMouseEnter={this.handleMouseEnter}
                     onMouseLeave={this.handleMouseLeave}
@@ -645,9 +665,10 @@ class ChatBox extends React.Component {
                           </div>
                         </Popover>
                       </List.Item>
-                      <div className="infor-content">
-                        <pre className={"timelineMessage__message " + notificationClass} dangerouslySetInnerHTML={messageHtml} />
-                      </div>
+                      <pre
+                        className={'timelineMessage__message ' + notificationClass}
+                        dangerouslySetInnerHTML={messageHtml}
+                      />
                     </Col>
                     <Col span={2} className="message-time">
                       <h4>
@@ -657,20 +678,18 @@ class ChatBox extends React.Component {
                             <Icon type="edit" />
                           </span>
                         ) : (
-                            ''
-                          )}
+                          ''
+                        )}
                       </h4>
                     </Col>
-                    <Col span={24} style={{ position: 'relative' }}>
-                      {this.state.messageIdHovering === message._id && message.is_notification == false &&
+                    <Col span={24} style={{ position: 'relative' }} className="group-button-hover">
+                      {this.state.messageIdHovering === message._id && message.is_notification == false && (
                         <div style={{ textAlign: 'right', position: 'absolute', bottom: '0', right: '0' }}>
-                          {currentUserInfo._id === message.user_info._id && 
-                            !this.props.isReadOnly && (
-                              <Button type="link" onClick={this.editMessage} id={message._id}>
-                                <Icon type="edit" /> {t('button.edit')}
-                              </Button>
-                            )
-                          }
+                          {currentUserInfo._id === message.user_info._id && !this.props.isReadOnly && (
+                            <Button type="link" onClick={this.editMessage} id={message._id}>
+                              <Icon type="edit" /> {t('button.edit')}
+                            </Button>
+                          )}
                           <Divider type="vertical" />
                           <Button
                             type="link"
@@ -685,7 +704,7 @@ class ChatBox extends React.Component {
                             <Icon type="rollback" /> {t('button.quote')}
                           </Button>
                         </div>
-                      }
+                      )}
                     </Col>
                   </Row>
                   {message._id === currentLastMsgId && currentLastMsgId !== listNewLoadedMessage[0] ? redLine : ''}
@@ -712,17 +731,17 @@ class ChatBox extends React.Component {
               </Button>
             </React.Fragment>
           ) : (
-              <React.Fragment>
-                <Button
-                  style={{ float: 'right' }}
-                  type="primary"
-                  onClick={this.handleSendMessage}
-                  disabled={this.props.isReadOnly}
-                >
-                  {t('button.send')}
-                </Button>
-              </React.Fragment>
-            )}
+            <React.Fragment>
+              <Button
+                style={{ float: 'right' }}
+                type="primary"
+                onClick={this.handleSendMessage}
+                disabled={this.props.isReadOnly}
+              >
+                {t('button.send')}
+              </Button>
+            </React.Fragment>
+          )}
         </div>
         <Input.TextArea
           placeholder={t('type_msg')}
