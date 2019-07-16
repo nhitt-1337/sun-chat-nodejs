@@ -1,24 +1,52 @@
 export const config = {
-  STATUS: [
-    {
-      value: 0,
-      title: 'status.new',
+  STATUS: {
+    NEW: {
+      VALUE: 0,
+      TITLE: 'task.new',
+      COLOR: '',
+      STATUS: 'active',
     },
-    {
-      value: 1,
-      title: 'status.in_progress',
+    IN_PROGRESS: {
+      VALUE: 1,
+      TITLE: 'task.in_progress',
+      COLOR: '#1890ff',
+      STATUS: 'active',
     },
-    {
-      value: 2,
-      title: 'status.pending',
+    PENDING: {
+      VALUE: 2,
+      TITLE: 'task.pending',
+      COLOR: '#fa8700',
+      STATUS: 'normal',
     },
-    {
-      value: 3,
-      title: 'status.done',
+    DONE: {
+      VALUE: 3,
+      TITLE: 'task.done',
+      COLOR: '#52c41a',
+      STATUS: 'success',
     },
-    {
-      value: 4,
-      title: 'status.reject',
+    REJECT: {
+      VALUE: 4,
+      TITLE: 'task.reject',
+      COLOR: '#f5222d',
+      STATUS: 'exception',
     },
-  ],
+  },
+  TYPE: {
+    MY_TASKS: 1,
+    TASKS_ASSIGNED: 2,
+  },
+  LIST_TASKS: {
+    MY_TASKS: {
+      KEY: 1,
+      TITLE: 'title.tasks.my_tasks',
+    },
+    TASKS_ASSIGNED: {
+      KEY: 2,
+      TITLE: 'title.tasks.tasks_assigned',
+    },
+    ALL: {
+      KEY: 0,
+      TITLE: 'title.tasks.all',
+    },
+  },
 };

@@ -35,13 +35,13 @@ const Members = new Schema(
 const Tasks = new Schema(
   {
     content: { type: String },
-    start: { type: Date, default: null },
-    due: { type: Date, default: null },
+    start: { type: Date, default: Date.now() },
+    due: { type: Date },
     assigner: { type: Schema.ObjectId, ref: 'User' },
     assignees: [
       {
         user: { type: Schema.ObjectId, ref: 'User' },
-        status: { type: Number, default: config.TASK_STATUS.NEW },
+        status: { type: Number, default: config.TASK.STATUS.NEW }, // 0:new - 1:in-progress - 2:pending - 3:done - 4:reject
         percent: { type: Number, default: 0 },
       },
     ],
@@ -392,6 +392,80 @@ RoomSchema.statics = {
         },
       },
     ]);
+  },
+
+  getTasksOfRoom(roomId, userId, type) {
+    let query = [{ $match: { _id: mongoose.Types.ObjectId(roomId), deletedAt: null } }, { $unwind: '$tasks' }];
+
+    if (type == config.TASK.TYPE.TASKS_ASSIGNED) {
+      query.push({
+        $match: { 'tasks.deletedAt': null, 'tasks.assigner': mongoose.Types.ObjectId(userId) },
+      });
+    } else if (type == config.TASK.TYPE.MY_TASKS) {
+      query.push({
+        $match: { 'tasks.deletedAt': null, $expr: { $in: [mongoose.Types.ObjectId(userId), '$tasks.assignees.user'] } },
+      });
+    } else {
+      query.push({
+        $match: { 'tasks.deletedAt': null },
+      });
+    }
+
+    query.push(
+      {
+        $lookup: {
+          from: 'users',
+          let: { userId: '$tasks.assigner' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ['$_id', '$$userId'],
+                },
+              },
+            },
+            { $project: { _id: 1, avatar: 1, name: 1 } },
+          ],
+          as: 'tasks.assigner',
+        },
+      },
+      { $unwind: '$tasks.assignees' },
+      {
+        $lookup: {
+          from: 'users',
+          let: {
+            assigneeId: '$tasks.assignees.user',
+            status: '$tasks.assignees.status',
+            percent: '$tasks.assignees.percent',
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ['$_id', '$$assigneeId'],
+                },
+              },
+            },
+            { $project: { user: '$_id', _id: 0, avatar: 1, name: 1, status: '$$status', percent: '$$percent' } },
+          ],
+          as: 'tasks.assignees',
+        },
+      },
+      {
+        $group: {
+          _id: '$tasks._id',
+          content: { $first: '$tasks.content' },
+          assigner: { $first: { $arrayElemAt: ['$tasks.assigner', 0] } },
+          assignees: { $push: { $arrayElemAt: ['$tasks.assignees', 0] } },
+          start: { $first: '$tasks.start' },
+          due: { $first: '$tasks.due' },
+          createdAt: { $first: '$tasks.createdAt' },
+          updatedAt: { $first: '$tasks.updatedAt' },
+        },
+      }
+    );
+
+    return this.aggregate(query).exec();
   },
 
   getListNotMember: function({ _id, subName, listMember }) {

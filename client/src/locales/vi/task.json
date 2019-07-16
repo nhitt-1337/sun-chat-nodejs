@@ -10,7 +10,14 @@
     "content": "Nội dung",
     "pick_time": "Chọn ngày bắt đầu và ngày kết thúc",
     "assignees": "Gán cho thành viên",
-    "add_user": "Thêm thành viên"
+    "add_user": "Thêm thành viên",
+    "room_task": "Công việc",
+    "tasks": {
+      "my_tasks": "Công việc của tôi",
+      "tasks_assigned": "Công việc đã giao",
+      "all": "Tất cả",
+      "add_task": "Thêm công việc"
+    }
   },
   "status": {
     "new": "Mới",
@@ -24,5 +31,18 @@
     "time": "Lựa chọn thời gian",
     "assignees": "Hãy gán công việc này cho ai đó"
   },
-  "format_date": "YYYY-MM-DD HH:mm"
+  "format_date": "YYYY-MM-DD HH:mm",
+  "format_time": "D/M/Y H:mm",
+  "button": {
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "done": "Xong"
+  },
+  "task": {
+    "new": "Mới",
+    "in_progress": "Đang thực hiện",
+    "pending": "Đang chờ",
+    "done": "Xong",
+    "reject": "Từ chối"
+  }
 }

@@ -10,7 +10,14 @@
     "content": "Content",
     "pick_time": "Pick start date and end date",
     "assignees": "Assignees",
-    "add_user": "Add user"
+    "add_user": "Add user",
+    "room_task": "Tasks",
+    "tasks": {
+      "my_tasks": "My Tasks",
+      "tasks_assigned": "Tasks Assigned",
+      "all": "All Tasks",
+      "add_task": "Add Task"
+    }
   },
   "status": {
     "new": "New",
@@ -24,5 +31,18 @@
     "time": "Please select time",
     "assignees": "Please assign this task for somebody"
   },
-  "format_date": "YYYY-MM-DD HH:mm"
+  "format_date": "YYYY-MM-DD HH:mm",
+  "format_time": "D/M/Y H:mm",
+  "button": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "done": "Done"
+  },
+  "task": {
+    "new": "New",
+    "in_progress": "In-progress",
+    "pending": "Pending",
+    "done": "Done",
+    "reject": "Reject"
+  }
 }

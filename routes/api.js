@@ -173,12 +173,18 @@ router.post(
   roomsController.editDescOfRoom
 );
 
+// Task
 router.post(
   '/rooms/:roomId/tasks',
   [auth.jwtMiddleware, authorization.room.hasAuthorization],
   roomsValidate.validate('createTask'),
   tasksController.createTask
 );
-
 router.post('/rooms/:roomId/send-calling-request', [auth.jwtMiddleware, authorization.room.hasAuthorization], roomsController.sendCallingRequest);
+router.get(
+  '/rooms/:roomId/tasks',
+  [auth.jwtMiddleware, authorization.room.hasAuthorization],
+  tasksController.getTasksOfRoom
+);
+
 module.exports = router;

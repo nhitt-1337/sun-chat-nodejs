@@ -49,11 +49,17 @@ module.exports = {
     LIMIT_REPRESENTATIVE_MEMBER: 5,
   },
   LIMIT_REQUEST: 50,
-  TASK_STATUS: {
-    NEW: 0,
-    IN_PROGRESS: 1,
-    PENDING: 2,
-    DONE: 3,
-    REJECT: 4,
+  TASK: {
+    STATUS: {
+      NEW: 0,
+      IN_PROGRESS: 1,
+      PENDING: 2,
+      DONE: 3,
+      REJECT: 4,
+    },
+    TYPE: {
+      MY_TASKS: 1,
+      TASKS_ASSIGNED: 2,
+    },
   },
 };

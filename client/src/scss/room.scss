@@ -1,7 +1,7 @@
 .description-chat.ant-layout-sider {
   color: #fff;
   float: right;
-  background-color: #e6e6e6;
+  background-color: #f3f3f2;
 }
 .icon-request-list {
   margin-top: -10px;
@@ -79,25 +79,150 @@ head .delete-member {
   float: right;
   margin: 10px 0 0 5px;
 }
-.title-desc-chat-room {
-  display: flex;
-  padding: 4px 8px;
-  margin-bottom: 8px;
-  color: black;
-  height: 30px;
+
+.ant-layout-sider-children {
+  height: 89vh;
+  overflow: scroll;
 }
-.content-desc-chat-room {
-  padding-left: 10px;
-  padding-right: 10px;
+
+.title-desc-chat-room,
+.content-task-chat-room {
+  display: flex;
+  padding: 8px 10px;
+  color: black;
+  font-size: 13px;
+  background-color: #e6e6e6;
+}
+
+.content-task-chat-room {
+  padding: 0;
+  background-color: #fff;
+  div:nth-child(2) {
+    text-align: left;
+  }
+  .ant-progress-line {
+    width: 88%;
+  }
+}
+
+.content-task-icon {
+  div:nth-child(2) {
+    text-align: right;
+  }
+}
+
+.assignee-info {
+  max-height: 107px;
+  overflow: scroll;
 }
 
 .content-desc-chat-room {
-  color: #000;
+  background: #f2f3f2;
+  padding: 10px;
+  color: #1a1a1a;
+  font-size: 13px;
 }
 
 .invitation-btn {
   position: relative;
-  top: 20px;
+}
+
+.no-description {
+  color: #999999;
+}
+
+.chat-task {
+  .content-task {
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+    color: #1a1a1a;
+    font-size: 13px;
+    border: 1px solid #e2e2e2;
+    hr {
+      border-top: 1px dashed #e6e6e6;
+      border-bottom: none;
+    }
+    &:hover {
+      border: 1px solid #2290ff;
+    }
+  }
+  .ant-avatar,
+  .ant-avatar.ant-avatar-circle.ant-avatar-image {
+    width: 16px;
+    height: 16px;
+    margin: 1px 10px 1px 0;
+  }
+  .task-assign strong {
+    color: #b70000;
+  }
+  .task-icon {
+    a {
+      margin-left: 5px;
+      padding: 4px;
+      text-align: center;
+      border-radius: 3px;
+      color: #1a1a1a;
+    }
+    a:hover {
+      background: #cbd9e8;
+    }
+  }
+  .box-add-task {
+    width: 100%;
+    color: #004d9a;
+    font-weight: bold;
+    padding: 10px;
+    height: 40px;
+    i {
+      font-size: 16px;
+    }
+    div {
+      &:nth-child(1) {
+        text-align: left;
+      }
+      &:nth-child(2) {
+        text-align: right;
+      }
+    }
+  }
+  .task-done {
+    text-align: right;
+    margin-top: 5px;
+    button {
+      height: 26px;
+    }
+  }
+  .ant-progress-outer {
+    width: 87%;
+  }
+  .ant-progress-status-normal {
+    .ant-progress-text {
+      color: #fa8700;
+    }
+  }
+  .ant-progress-status-active {
+    .ant-progress-text {
+      color: #1890ff;
+    }
+  }
+  .ant-progress-text {
+    font-weight: bold;
+    font-size: 10px;
+    width: 7em;
+  }
+  .ant-tooltip-inner {
+    padding: 5px;
+    min-width: 26px;
+    min-height: 26px;
+  }
+  .ant-tabs-nav .ant-tabs-tab {
+    padding: 10px;
+  }
+  .ant-tabs-nav-wrap {
+    background-color: #e6e6e6;
+  }
 }
 
 .copy-btn {

@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 import { getInforRoom, getMembersOfRoom } from '../../api/room';
 import ChatBox from '../../components/room/ChatBox';
 import HeaderOfRoom from '../../components/room/HeaderOfRoom';
+import TasksOfRoom from '../../components/room/TasksOfRoom';
 import { SocketContext } from './../../context/SocketContext';
 import { withUserContext } from './../../context/withUserContext';
 import ModalEditDesc from '../../components/room/ModalEditDesc';
@@ -227,7 +228,9 @@ class RoomDetail extends React.Component {
                     </Modal>
                   </Col>
                 </Row>
-                <div className="content-desc-chat-room">{roomInfo.desc}</div>
+                <div className="content-desc-chat-room">
+                  {roomInfo.desc ? roomInfo.desc : <div className="no-description">No description</div>}
+                </div>
                 {roomInfo.type == room.ROOM_TYPE.GROUP_CHAT ? (
                   <div>
                     <Button type="primary" block onClick={this.showModal} className="invitation-btn">
@@ -238,6 +241,7 @@ class RoomDetail extends React.Component {
                 ) : (
                   ''
                 )}
+                <TasksOfRoom />
               </Sider>
             </Resizable>
           </Layout>

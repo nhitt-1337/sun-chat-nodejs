@@ -4,6 +4,7 @@ const Room = require('../models/room.js');
 const { validationResult } = require('express-validator/check');
 const logger = require('./../logger/winston');
 const channel = logger.init('error');
+const config = require('../../config/config');
 
 function customMessageValidate(errors) {
   let customErrors = { ...errors.array() };
@@ -48,5 +49,27 @@ exports.createTask = async (req, res) => {
     channel.error(err);
 
     return res.status(500).json({ error: __('task.create.error') });
+  }
+};
+
+exports.getTasksOfRoom = async function(req, res) {
+  const { roomId } = req.params;
+  const { _id } = req.decoded;
+  const { type } = req.query;
+
+  try {
+    let tasks = await Room.getTasksOfRoom(roomId, _id, type);
+
+    return res.status(200).json({
+      results: {
+        tasks: tasks,
+      },
+    });
+  } catch (err) {
+    channel.error(err);
+
+    return res.status(500).json({
+      results: [],
+    });
   }
 };
