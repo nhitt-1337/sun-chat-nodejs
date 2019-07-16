@@ -41,7 +41,7 @@ const Tasks = new Schema(
     assignees: [
       {
         user: { type: Schema.ObjectId, ref: 'User' },
-        status: { type: Number, default: config.TASK.STATUS.NEW }, // 0:new - 1:in-progress - 2:pending - 3:done - 4:reject
+        status: { type: Number, default: config.TASK.STATUS.NEW }, // 0:new - 10:in-progress - 20:pending - 30:done - 40:reject
         percent: { type: Number, default: 0 },
       },
     ],

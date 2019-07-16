@@ -52,10 +52,10 @@ module.exports = {
   TASK: {
     STATUS: {
       NEW: 0,
-      IN_PROGRESS: 1,
-      PENDING: 2,
-      DONE: 3,
-      REJECT: 4,
+      IN_PROGRESS: 10,
+      PENDING: 20,
+      DONE: 30,
+      REJECT: 40,
     },
     TYPE: {
       MY_TASKS: 1,

@@ -126,7 +126,7 @@ class TasksOfRoom extends React.Component {
                           <div className="assignee-info">
                             {task.assignees.map((assignee, key) => {
                               const status = _.find(configTask.STATUS, { VALUE: assignee.status });
-                              const color = status.COLOR;
+                              const color = status ? status.COLOR : '';
 
                               return (
                                 <div key={key}>
@@ -137,7 +137,7 @@ class TasksOfRoom extends React.Component {
                                       size="small"
                                       strokeColor={color}
                                       format={() => (status ? t(status.TITLE) : '')}
-                                      status={status.STATUS}
+                                      status={status ? status.STATUS : ''}
                                     />
                                   </Tooltip>
                                 </div>
